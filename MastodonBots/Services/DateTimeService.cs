@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace MastodonBots.Services
 {
@@ -7,7 +6,7 @@ namespace MastodonBots.Services
     {
         public string GetCurrentWeekStatus()
         {
-            return $"Det är nu vecka {GetCurrentWeek()}";
+            return $"It is now week {GetCurrentWeek()}\n\n#hachybots";
         }
 
         private int GetCurrentWeek()
