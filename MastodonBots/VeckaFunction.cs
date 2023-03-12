@@ -16,7 +16,7 @@ namespace MastodonBots
         }
 
         [Function(nameof(VeckaFunction))]
-        public async Task Run([TimerTrigger("0 0 0 * * *", RunOnStartup = true)] TimerInfo myTimer)
+        public async Task Run([TimerTrigger("0 0 0 * * *", RunOnStartup = false)] TimerInfo myTimer)
         {
             _logger.LogInformation("Starting Vecka at: {Time}", DateTime.Now);
 
