@@ -5,9 +5,12 @@
       "default": "Information",
       "Host": "Warning",
       "Microsoft": "Warning",
+      "Microsoft.Azure.WebJobs": "Warning",
       "Azure.Core": "Error",
       "Azure.Messaging.EventHubs": "Warning",
-      "System.Net.Http.HttpClient": "Warning"
+      "System.Net.Http.HttpClient": "Warning",
+      "Function.VeckaFunction": " Warning",
+      "Function.VeckaFunction.User": " Information"
     },
     "applicationInsights": {
       "samplingSettings": {

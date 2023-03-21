@@ -8,32 +8,33 @@ namespace MastodonBots
     {
         private readonly ILogger<VeckaFunction> _logger;
         private readonly IMastodonService _mastodonService;
+        private readonly DateTimeService _dateTimeService;
 
         public VeckaFunction(ILogger<VeckaFunction> logger, IMastodonService mastodonService)
         {
             _logger = logger;
             _mastodonService = mastodonService;
+            _dateTimeService = new DateTimeService();
         }
 
         [Function(nameof(VeckaFunction))]
-        public async Task Run([TimerTrigger("0 0 0 * * *", RunOnStartup = false)] TimerInfo myTimer)
+        public async Task Run([TimerTrigger("0 0 0 * * *", RunOnStartup = true)] TimerInfo myTimer)
         {
             _logger.LogInformation("Starting Vecka at: {Time}", DateTime.Now);
 
-            var dateTimeService = new DateTimeService();
-
-            var newStatus = dateTimeService.GetCurrentWeekStatus();
+            var statusForCheck = _dateTimeService.GetCurrentWeekStatusForCheck();
 
             var statuses = await _mastodonService.GetStatuses();
 
-            if (!statuses.Any(x => x.Contains(newStatus)))
+            if (!statuses.Any(x => x.Contains(statusForCheck)))
             {
-                await _mastodonService.AddStatus(newStatus);
-                _logger.LogInformation("Posted status '{Status}'", newStatus);
+                var statusForPost = _dateTimeService.GetCurrentWeekStatusForPost();
+                await _mastodonService.AddStatus(statusForPost);
+                _logger.LogInformation("Posted '{Status}'", statusForPost);
             }
             else
             {
-                _logger.LogInformation("Status '{Status}' already existed", newStatus);
+                _logger.LogInformation("Status '{Status}' already existed", statusForCheck);
             }
         }
     }

@@ -4,14 +4,12 @@ namespace MastodonBots.Services
 {
     internal class DateTimeService
     {
-        public string GetCurrentWeekStatus()
-        {
-            return $"It is now week {GetCurrentWeek()}\n\n#hachybots";
-        }
+        private readonly string _Text = "It is now week";
 
-        private int GetCurrentWeek()
-        {
-            return ISOWeek.GetWeekOfYear(DateTime.UtcNow);
-        }
+        public string GetCurrentWeekStatusForCheck() => $"{_Text} {GetCurrentWeek()}";
+
+        public string GetCurrentWeekStatusForPost() => $"{_Text} {GetCurrentWeek()}\n\n#hachybots";
+
+        private int GetCurrentWeek() => ISOWeek.GetWeekOfYear(DateTime.UtcNow);
     }
 }
