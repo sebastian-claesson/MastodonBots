@@ -26,7 +26,7 @@ namespace MastodonBots
 
             var statuses = await _mastodonService.GetStatuses();
 
-            if (!statuses.Any(x => x.Contains(statusForCheck)))
+            if (!statuses.Exists(x => x.Contains(statusForCheck)))
             {
                 var statusForPost = _dateTimeService.GetCurrentWeekStatusForPost();
                 await _mastodonService.AddStatus(statusForPost);

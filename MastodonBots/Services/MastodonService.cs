@@ -8,7 +8,7 @@ namespace MastodonBots.Services
     public class MastodonService : IMastodonService
     {
         private readonly ApplicationSettings _settings;
-        private HttpClient _client;
+        private readonly HttpClient _client;
 
         public MastodonService(IOptions<ApplicationSettings> settings)
         {
